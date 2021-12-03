@@ -39,15 +39,17 @@ export default function Home() {
 
         <h3>Projetos</h3>
 
-        <div>
-        <Card>
-          <strong>Projeto Fintech - </strong>
-          <span> 49 horas trabalhadas</span>
-        </Card>
-        <Card>
-          <strong>Projeto Fintech - </strong>
-          <span> 49 horas trabalhadas</span>
-        </Card>
+        <div className="container-cards">
+          <Card>
+            <strong>12/12/21 - </strong>
+            <strong>Projeto Fintech - </strong>
+            <span> 49 horas trabalhadas</span>
+          </Card>
+          <Card>
+            <strong>12/12/21 - </strong>
+            <strong>Projeto Fintech - </strong>
+            <span> 49 horas trabalhadas</span>
+          </Card>
         </div>
       </Container>
     </ContainerMain>

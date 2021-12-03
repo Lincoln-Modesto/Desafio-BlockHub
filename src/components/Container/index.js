@@ -15,6 +15,12 @@ export const Container = styled.div`
       margin-top: 32px;
     }
 
+    .container-cards{
+      max-height: max-content;
+      overflow: auto; 
+      height: calc(100vh - 250px);
+    }
+
     h3{
       margin: 32px 0;
       color: ${({theme}) => theme.colors.gray[900]};

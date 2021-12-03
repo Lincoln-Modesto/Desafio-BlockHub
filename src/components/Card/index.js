@@ -17,7 +17,8 @@ export const Card = styled.div`
   }
 
   span{
-    color: ${({theme}) => theme.colors.gray[200]};
+    color: ${({theme}) => theme.colors.primary.main};
+    font-weight: 700;
   }
 
   strong{
