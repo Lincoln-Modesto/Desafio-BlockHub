@@ -1,15 +1,15 @@
 const theme = {
   colors:{
-      background: '#F3EDED',
+      background: '#FAFAFA',
       primary:{
           lighter: '#FFF',
-          light: '#F6963E',
-          main: '#ED5D2F',
-          dark: '#DD2E44',
+          light: '#6CB4F6',
+          main: '#2E89DD',
+          dark: '#0F61AC',
       },
       gray:{
           900: '#222222',
-          200: '#BCBCBC',
+          200: '#555',
           100: '#E5E5E5'
       },
       danger:{
