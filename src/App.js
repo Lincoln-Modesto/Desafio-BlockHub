@@ -1,19 +1,21 @@
 import { ThemeProvider } from 'styled-components';
-
 import GlobalStyle from './styles/GlobalStyle';
-import defaultTheme from './styles/theme/default'
+import defaultTheme from './styles/theme/default';
 
-import Login from "./pages/Login/index";
-import Register from './pages/Register'
-import Home from './pages/Home';
+import Routes from './Routes';
+import { Router } from 'react-router-dom';
+import history from './pages/history'
+import { AuthProvider } from './context/AuthContext';
 
-export default function App(){
-  return(
-    <ThemeProvider theme={defaultTheme}>
-        <GlobalStyle/>
-        <Home/>
-    </ThemeProvider>
-     
-   
+export default function App() {
+  return (
+   <AuthProvider>
+      <Router history={history}>
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <Routes />
+      </ThemeProvider>
+    </Router>
+   </AuthProvider>
   )
 }

@@ -17,6 +17,10 @@ export const Content = styled.div`
 export const TextRegister = styled.h3`
   margin-top: 50px;
   font-weight: lighter;
+
+  a{
+    text-decoration: none;
+  }
 `
 
 export const Register = styled.a`
