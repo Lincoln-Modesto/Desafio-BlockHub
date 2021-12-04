@@ -2,7 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import defaultTheme from './styles/theme/default';
 
-import Routes from './Routes';
+import Routes from './routes/Routes';
 import { Router } from 'react-router-dom';
 import history from './pages/history'
 import { AuthProvider } from './context/AuthContext';

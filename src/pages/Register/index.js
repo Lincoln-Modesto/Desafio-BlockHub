@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import Swal from 'sweetalert2'
+
 import Logo from '../../assets/logo.svg'
 import arrowLeft from '../../assets/arrowLeft.svg'
 
@@ -6,8 +9,45 @@ import { GoBack } from './styles';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { Link } from 'react-router-dom';
+import api from '../../services/api';
+import history from '../history';
 
 export default function Register() {
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  function handleName(event){
+    setName(event.target.value)
+  }
+
+  function handleEmail(event){
+    setEmail(event.target.value)
+  }
+
+  function handlePassword(event){
+    setPassword(event.target.value)
+  }
+
+  function handleRegister(){
+    try{
+      api.post('/register', {
+        name: name,
+        email: email,
+        password: password
+      })
+
+     Swal.fire({ 
+        title: 'Cadastro realizado com sucesso!',
+        confirmButtonText: 'Save',
+        icon: 'success', 
+      }).then(() => {
+        history.push('/login')
+      })
+    }catch(err){}
+  }
+  
   return (
     <Container>
 
@@ -22,10 +62,28 @@ export default function Register() {
         <img src={Logo} alt="logo" />
       </Content>
       
-      <Input placeholder="Nome" type="text" />
-      <Input placeholder="Email" type="email" />
-      <Input placeholder="Senha" type="password" />
-      <Button type="button">Registrar</Button>
+      <Input
+      placeholder="Nome"
+      type="text"
+      value={name}
+      onChange={handleName}/>
+
+      <Input
+      placeholder="Email"
+      type="email"
+      value={email}
+      onChange={handleEmail}
+      />
+
+      <Input
+      placeholder="Senha"
+      type="password"
+      value={password}
+      onChange={handlePassword}/>
+
+      <Button 
+      type="button"
+      onClick={handleRegister}>Registrar</Button>
     </Container>
   )
 }
