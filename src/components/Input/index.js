@@ -7,7 +7,7 @@ export const Input = styled.input`
   padding: 16px;
   border-radius: 20px;
   width: 350px;
-  margin-bottom: 24px;
+  margin-bottom: ${({noMargin}) => (noMargin ? '0' : '24px')};
   font-size: 16px;
 
   :focus{

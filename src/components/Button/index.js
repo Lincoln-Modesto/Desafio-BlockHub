@@ -7,7 +7,10 @@ export const Button = styled.button`
   font-weight: bold;
   font-size: 16px;
   height: 60px;
-  width: 350px;
+  width: ${({small}) => (small ? '200px' : '350px')};
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `

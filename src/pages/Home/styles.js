@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 export const ContainerMain = styled.main`
   display: flex;
+
+  .container-project{
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const Name = styled.h4`
@@ -12,7 +17,6 @@ export const Name = styled.h4`
 export const Email = styled.h5`
   color: ${({theme}) => theme.colors.gray[200]};
   font-weight: normal;
-  margin-bottom: 50px;
 `
 
 export const Logo = styled.img`
