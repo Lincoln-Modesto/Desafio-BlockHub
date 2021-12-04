@@ -1,4 +1,6 @@
-import user from '../../assets/user.svg';
+import { useEffect, useState, useCallback } from 'react';
+
+import userImg from '../../assets/user.svg';
 import logo from '../../assets/logo2x.svg';
 import plus from '../../assets/plus.svg';
 import document from '../../assets/document.svg';
@@ -7,13 +9,45 @@ import { Container, SideBar } from "../../components/Container";
 import { Input } from '../../components/Input'
 import { ContainerMain, Email, Name, Logo, Item } from "./styles";
 import { Card } from '../../components/Card';
+import Loader from '../../components/Loader'
+import api from '../../services/api';
 
 export default function Home() {
+
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(false)
+
+  const loadUser =  useCallback(async () => {
+    try {
+      setLoading(true)
+      const token = localStorage.getItem('token');
+
+      const {data} = await api.get('/profile', {}, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(token)}`
+        }
+      })
+      setUser(data)
+    } catch (err) {
+      console.log(err)
+    }finally{
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect( () => {
+    loadUser()
+  }, [loadUser])
+
+  console.log(user)
+
   return (
-    <ContainerMain>
+    <>
+      <Loader isLoading={loading}/>
+      <ContainerMain>
       <SideBar>
         <Logo src={logo} alt="logo" />
-        <img src={user} alt="user" />
+        <img src={userImg} alt="user" />
 
         <Name>Lincoln Costa Modesto</Name>
         <Email>lincoln@dev.com</Email>
@@ -53,5 +87,6 @@ export default function Home() {
         </div>
       </Container>
     </ContainerMain>
+    </>
   )
 }

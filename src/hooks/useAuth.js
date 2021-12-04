@@ -18,8 +18,7 @@ export default function useAuth(){
   },[])
 
   async function handleLogin(email, password){
-    console.log(email)
-    console.log(password)
+
      try{
       const {data} = await api
       .post('/login', {

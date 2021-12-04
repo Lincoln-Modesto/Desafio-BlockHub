@@ -30,9 +30,9 @@ export default function Register() {
     setPassword(event.target.value)
   }
 
-  function handleRegister(){
+ async function handleRegister(){
     try{
-      api.post('/register', {
+      await api.post('/register', {
         name: name,
         email: email,
         password: password
