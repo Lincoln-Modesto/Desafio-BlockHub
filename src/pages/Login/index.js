@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Context } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 import Logo from '../../assets/logo.svg'
@@ -8,6 +9,8 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
 export default function Login() {
+
+  const { handleLogin } = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,8 +24,8 @@ export default function Login() {
   }
 
   return (
+    <>
     <Container>
-      
       <Content>
         <img src={Logo} alt="alt" />
       </Content>
@@ -38,14 +41,18 @@ export default function Login() {
         onChange={handlePasswordChange}
         value={password} />
 
-      <Button type="button">Entrar</Button>
+      <Button 
+      type="button"
+      onClick={() => handleLogin(email, password)}>
+        Entrar</Button>
 
       <TextRegister>Ainda não tem uma conta? &nbsp;
-        <Link to="/register">
-          <Register>Cadastre-se</Register>
-        </Link>
+        <Register as={Link} to="/register">
+          Cadastre-se
+        </Register>
       </TextRegister>
 
     </Container>
+    </>
   )
 }
