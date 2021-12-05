@@ -1,12 +1,25 @@
 import styled from "styled-components";
 
-export const ContainerMain = styled.main`
-  display: flex;
 
-  .container-project{
-    display: flex;
-    flex-direction: column;
-  }
+export const SideBar = styled.aside`
+  margin: 32px;
+  padding: 16px;
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  height: 100vh;
+
+    .container-item{
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      width: 100%;
+      padding: 32px;
+    }
 `
 
 export const Name = styled.h4`
@@ -23,7 +36,7 @@ export const Logo = styled.img`
   margin-bottom: 50px;
 `
 
-export const Item = styled.div`
+export const Item = styled.a`
   display: flex;
   align-items: center;
   justify-content: start;
@@ -31,4 +44,5 @@ export const Item = styled.div`
   color: ${({theme}) => theme.colors.primary.main};
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
 `

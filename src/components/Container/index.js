@@ -6,6 +6,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 20px;
   width: 100%;
+  margin-bottom: 32px;
   height: 70vh;
 
     .container-inputs{
@@ -21,43 +22,48 @@ export const Container = styled.div`
       height: calc(70vh - 250px);
     }
 
+    .container-data{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     h3{
       margin: 32px 0;
-      color: ${({ theme }) => theme.colors.gray[900]};
+      color: ${({ theme }) => theme.colors.gray[200]};
+    }
+
+    h4{
+      margin-bottom: 5px;
+      color: ${({ theme }) => theme.colors.gray[100]};
     }
 `
 
-export const SideBar = styled.aside`
-  margin: 32px;
-  padding: 16px;
-  background-color: ${({ theme }) => theme.colors.primary.lighter};
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
-  height: 100vh;
-
-    .container-item{
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      width: 100%;
-      padding: 32px;
-    }
-`
 export const ContainerSecondary = styled.div`
   margin: 32px;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 20px;
   width: 100%;
-  height: 25vh;
 
   .content-container-project{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 16px;
+  }
+
+  h3{
+      color: ${({ theme }) => theme.colors.gray[200]};
+    }
+`
+
+export const ContainerMain = styled.main`
+  display: flex;
+  box-sizing: content-box;
+  
+  .container-project{
+    display: flex;
+    flex-direction: column;
   }
 `
