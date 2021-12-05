@@ -18,14 +18,27 @@ export const Container = styled.div`
 
     .container-cards{
       max-height: max-content;
-      overflow: auto; 
-      height: calc(75vh - 250px);
     }
 
     .container-data{
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .charts{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pie{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 30%;
+      height: 30%;
     }
 
     h3{
@@ -35,7 +48,7 @@ export const Container = styled.div`
 
     h4{
       margin-bottom: 5px;
-      color: ${({ theme }) => theme.colors.gray[100]};
+      color: ${({ theme }) => theme.colors.gray[200]};
     }
 `
 

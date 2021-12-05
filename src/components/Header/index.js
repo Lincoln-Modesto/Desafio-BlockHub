@@ -4,21 +4,16 @@ import home from '../../assets/home.svg';
 import work from '../../assets/work.svg';
 import document from '../../assets/document.svg';
 import logout from '../../assets/logout.svg';
-import userImg from '../../assets/user.svg';
 import logo from '../../assets/logo2x.svg';
 
-import {Email, Name, Item, SideBar, Logo} from './styles'
+import {Item, HeaderContainer} from './styles'
 
-export function Aside({user}){
+export function Header(){
   return(
-    <SideBar>
-    <Logo src={logo} alt="logo" />
-    <img src={userImg} alt="user" />
+    <HeaderContainer>
+    <img src={logo} alt="logo" />
 
-    <Name>{user?.name}</Name>
-    <Email>{user?.email}</Email>
-
-    <div className="container-item">
+    <ul className="container-item">
       <Item as={Link} to="/">
         <img src={home} alt="home" />
         <span>&nbsp; Home</span>
@@ -35,7 +30,7 @@ export function Aside({user}){
         <img src={logout} alt="sair" />
         <span>&nbsp; Sair</span>
       </Item>
-    </div>
-  </SideBar>
+    </ul>
+    </HeaderContainer>
   )
 }

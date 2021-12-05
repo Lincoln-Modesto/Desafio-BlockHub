@@ -15,12 +15,12 @@ import { Input } from '../../components/Input';
 import { Card } from '../../components/Card';
 import Loader from '../../components/Loader';
 import { Button } from '../../components/Button';
-import { Aside } from '../../components/Aside';
+import { Header } from '../../components/Header';
 
 
 export default function Home() {
 
-  const { user, loading, GetProfile, GetProject, projects } = useContext(Context);
+  const {loading, GetProfile, GetProject, projects } = useContext(Context);
 
   const [project, setProject] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,10 +83,10 @@ export default function Home() {
   return (
     <>
       <Loader isLoading={loading} />
+      
+      <Header/>
+
       <ContainerMain>
-
-        <Aside user={user}/>
-
         <section className="container-project">
           <ContainerSecondary>
             <h3>Cadastrar Projetos</h3>
