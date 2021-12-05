@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 0 32px;
+  margin-top: 32px;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 20px;
   width: 100%;
   margin-bottom: 32px;
-  height: 70vh;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     .container-inputs{
       display: flex;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     .container-cards{
       max-height: max-content;
       overflow: auto; 
-      height: calc(70vh - 250px);
+      height: calc(75vh - 250px);
     }
 
     .container-data{
@@ -40,12 +40,13 @@ export const Container = styled.div`
 `
 
 export const ContainerSecondary = styled.div`
-  margin: 32px;
+  margin-top: 32px;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 20px;
   width: 100%;
-
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
   .content-container-project{
     display: flex;
     align-items: center;
@@ -61,9 +62,12 @@ export const ContainerSecondary = styled.div`
 export const ContainerMain = styled.main`
   display: flex;
   box-sizing: content-box;
-  
+  justify-content: center;
+
   .container-project{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 0 32px;
   }
 `

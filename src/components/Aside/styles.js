@@ -11,8 +11,8 @@ export const SideBar = styled.aside`
   align-items: center;
   width: 100%;
   max-width: 300px;
-  height: 100vh;
-
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
     .container-item{
       display: flex;
       flex-direction: column;

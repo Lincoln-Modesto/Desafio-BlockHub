@@ -6,6 +6,7 @@ import {
 import Swal from "sweetalert2";
 import { Context } from '../../context/ProjectContext';
 import api from "../../services/api";
+import history from '../history';
 
 import plus from '../../assets/plusWhite.svg';
 
@@ -15,6 +16,7 @@ import { Card } from '../../components/Card';
 import Loader from '../../components/Loader';
 import { Button } from '../../components/Button';
 import { Aside } from '../../components/Aside';
+
 
 export default function Home() {
 
@@ -29,6 +31,13 @@ export default function Home() {
 
   function handleSearch(event){
     setSearchTerm(event.target.value);
+  }
+
+  function handleRequestProject(item){
+    history.push({
+      pathname: `/project/${item?._id}`,
+      state: {project: item}
+    })
   }
 
   const filteredProjects = useMemo(() => (
@@ -110,7 +119,7 @@ export default function Home() {
 
             <div className="container-cards">
               {filteredProjects?.map( (item) => 
-                <Card>
+                <Card onClick={() => handleRequestProject(item)} key={item._id}>
                 <strong>{item?.name}</strong>
               </Card>
               )}

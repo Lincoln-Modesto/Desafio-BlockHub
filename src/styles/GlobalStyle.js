@@ -12,6 +12,7 @@ export default createGlobalStyle`
         background-color: ${({ theme }) => theme.colors.background};
         color: ${({ theme }) => theme.colors.gray[900]};
         box-sizing: content-box;
+        overflow-x: hidden;
     }
     button{
         cursor: pointer;
