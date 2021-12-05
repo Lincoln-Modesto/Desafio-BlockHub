@@ -5,6 +5,7 @@ export function LoadUser() {
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const [projects, setProjects] = useState([]);
 
   const GetProfile = useCallback(async () => {
 
@@ -25,6 +26,24 @@ export function LoadUser() {
     }
   }, [])
 
-  return { GetProfile, user, loading,  }
+  const GetProject = useCallback(async () => {
+    try{
+      setLoading(true)
+      const token = localStorage.getItem('token');
+  
+      const {data} = await api.get('/project', {}, {
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(token)}`
+        }
+      })
+      setProjects(data)
+    }catch(err){
+      console.log(err)
+    }finally{
+      setLoading(false)
+    }
+  }, [])
+
+  return { GetProfile, user, loading, GetProject, projects }
 }
 

@@ -2,34 +2,26 @@ import {
   useEffect, 
   useContext, 
   useState, 
-  useCallback,
   useMemo } from 'react';
 import Swal from "sweetalert2";
 import { Context } from '../../context/ProjectContext';
 import api from "../../services/api";
 
-import userImg from '../../assets/user.svg';
-import logo from '../../assets/logo2x.svg';
 import plus from '../../assets/plusWhite.svg';
-import home from '../../assets/home.svg';
-import work from '../../assets/work.svg';
-import document from '../../assets/document.svg';
-import logout from '../../assets/logout.svg';
 
-import { Container, SideBar, ContainerSecondary } from "../../components/Container";
+import { Container, ContainerSecondary, ContainerMain } from "../../components/Container";
 import { Input } from '../../components/Input';
-import { ContainerMain, Email, Name, Logo, Item } from "./styles";
 import { Card } from '../../components/Card';
 import Loader from '../../components/Loader';
 import { Button } from '../../components/Button';
+import { Aside } from '../../components/Aside';
 
 export default function Home() {
 
-  const { user, loading, GetProfile } = useContext(Context);
+  const { user, loading, GetProfile, GetProject, projects } = useContext(Context);
 
   const [project, setProject] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [projects, setProjects] = useState([]);
 
   function handleProject(event) {
     setProject(event.target.value);
@@ -44,21 +36,6 @@ export default function Home() {
       projects.name.toLowerCase().includes(searchTerm.toLowerCase())
     ))
   ), [projects, searchTerm]);
-
-  const GetProject = useCallback(async () => {
-    try{
-      const token = localStorage.getItem('token');
-  
-      const {data} = await api.get('/project', {}, {
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(token)}`
-        }
-      })
-      setProjects(data)
-    }catch(err){
-      console.log(err)
-    }
-  }, [])
 
   async function PostProject(project) {
     try {
@@ -92,39 +69,14 @@ export default function Home() {
   useEffect(() => {
     GetProject();
     GetProfile();
-  }, [GetProject, GetProfile])
+  }, [])
 
   return (
     <>
       <Loader isLoading={loading} />
       <ContainerMain>
 
-        <SideBar>
-          <Logo src={logo} alt="logo" />
-          <img src={userImg} alt="user" />
-
-          <Name>{user?.name}</Name>
-          <Email>{user?.email}</Email>
-
-          <div className="container-item">
-            <Item>
-              <img src={home} alt="home" />
-              <span>&nbsp; Home</span>
-            </Item>
-            <Item>
-              <img src={work} alt="projetos" />
-              <span>&nbsp; Projetos</span>
-            </Item>
-            <Item>
-              <img src={document} alt="relatorios" />
-              <span>&nbsp; Relatórios</span>
-            </Item>
-            <Item>
-              <img src={logout} alt="sair" />
-              <span>&nbsp; Sair</span>
-            </Item>
-          </div>
-        </SideBar>
+        <Aside user={user}/>
 
         <section className="container-project">
           <ContainerSecondary>
@@ -151,9 +103,9 @@ export default function Home() {
               <Input 
                 placeholder="Pesquisar por Projeto" 
                 type="text"
+                fullWidth
                 onChange={handleSearch}
                 value={searchTerm}/>
-              <Input placeholder="Pesquisar por Data" type="date" />
             </div>
 
             <div className="container-cards">
