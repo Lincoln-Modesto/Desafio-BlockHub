@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { LoadUser } from '../hooks/useProject'
+import useProject from '../hooks/useProject'
 const Context = createContext();
 
 function ProjectProvider({ children }) {
@@ -13,7 +13,7 @@ function ProjectProvider({ children }) {
     projects,
   
     GetHours,
-    hours} = LoadUser();
+    hours} = useProject();
 
   return (
     <Context.Provider

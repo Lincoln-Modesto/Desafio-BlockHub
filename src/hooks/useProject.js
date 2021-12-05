@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import api from "../services/api";
 
-export function LoadUser() {
+export default function useProject() {
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);

@@ -30,7 +30,7 @@ export const Container = styled.div`
 
     h3{
       margin: 32px 0;
-      color: ${({ theme }) => theme.colors.gray[200]};
+      color: ${({ theme }) => theme.colors.primary[200]};
     }
 
     h4{
@@ -52,6 +52,12 @@ export const ContainerSecondary = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: 16px;
+  }
+
+  .content-inputs{
+    > input{
+      margin-right: 10px;
+    }
   }
 
   h3{

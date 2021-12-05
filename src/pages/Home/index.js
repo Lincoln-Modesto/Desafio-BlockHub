@@ -50,7 +50,7 @@ export default function Home() {
     try {
       const token = localStorage.getItem('token');
   
-      api.post('/project', { name: project }, {
+      await api.post('/project', { name: project }, {
         headers: {
           'Authorization': `Bearer ${JSON.parse(token)}`
         }
