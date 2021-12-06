@@ -2,8 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from '../../context/ProjectContext';
 import Swal from "sweetalert2";
 import api from "../../services/api";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 import plus from '../../assets/plusWhite.svg';
 
@@ -12,9 +21,15 @@ import { Container, ContainerMain, ContainerSecondary } from "../../components/C
 import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
 import { InputSmall } from "../../components/Input";
-import { CardHour } from "../../components/Card"
+import { CardHour } from "../../components/Card";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale);
 
 export default function Project(props) {
 
@@ -93,20 +108,81 @@ export default function Project(props) {
     }
   }
 
-    const filteredHours = hours.filter((item) => (
-      item?.project === project?._id
-    ));
-  
-    let arrHours = [];
-  
-    filteredHours.map((item) => {
-      arrHours.push(item?.hours) 
-    })
+  /*filtrando horas em comum ao projeto para a listar*/
+  const filteredHours = hours.filter((item) => (
+    item?.project === project?._id
+  ));
 
-    const total = arrHours?.reduce(
-      (total, currentElement) => total + currentElement, 0
-    )
-    const totalHours = [total]
+  /*definindo horas para o gráfico de pizza*/
+  let arrHours = [];
+
+  filteredHours.forEach((item) => {
+    arrHours.push(item?.hours)
+  })
+
+  /*definindo total de horas para o gráfico de pizza*/
+  const total = arrHours?.reduce(
+    (total, currentElement) => total + currentElement, 0
+  )
+  const totalHours = [total]
+
+  /*definindo horas para o gráfico de barras*/
+  
+  const arrayHours = [];
+  const arrayMonths = [];
+  const months = [];
+
+  filteredHours.forEach((hour) => {
+    arrayHours.push(hour.hours)
+
+    const data = new Date(hour.day)
+    const month = data.getMonth()
+    arrayMonths.push(month)
+  });
+
+  arrayMonths.forEach((mes) => {
+    switch(mes){
+      case 0:
+        months.push("Janeiro")
+      break;
+      case 1:
+        months.push("Fevereiro")
+      break;
+      case 2:
+        months.push("Março")
+      break;
+      case 3:
+        months.push("Abril")
+      break;
+      case 4:
+        months.push("Maio")
+      break;
+      case 5:
+        months.push("Junho")
+      break;
+      case 6:
+        months.push("Julho")
+      break;
+      case 7:
+        months.push("Agosto")
+      break;
+      case 8:
+        months.push("Setembro")
+      break;
+      case 9:
+        months.push("Outubro")
+      break;
+      case 10:
+        months.push("Novembro")
+      break;
+      case 11:
+        months.push("Dezembro")
+      break;
+      default:
+        console.log('Não foi possível iterar')
+      break
+    }
+  })
 
   const dataHoursPerDay = {
     labels: arrDates,
@@ -116,7 +192,7 @@ export default function Project(props) {
         data: arrHours,
         backgroundColor: [
           'rgba(255, 99, 132, 0.4)',
-          'rgba(54, 162, 235, 0.4)',
+          'rgba(46, 137, 221, 0.4)',
           'rgba(255, 206, 86, 0.4)',
           'rgba(75, 192, 192, 0.4)',
           'rgba(153, 102, 255, 0.4)',
@@ -133,17 +209,28 @@ export default function Project(props) {
         label: 'Horas totais',
         data: totalHours,
         backgroundColor: [
-          'rgba(54, 162, 235, 0.4)',
+        'rgba(46, 137, 221, 0.4)'
         ],
       },
     ],
   }
 
+  const dataHoursPerMonth = {
+    labels: months,
+    datasets: [
+      {
+        label: 'Horas Trabalhadas',
+        data: arrayHours,
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+  };
+
   useEffect(() => {
     GetProfile();
     GetHours();
     setProject(props.location.state.project);
-  }, []);
+  }, [GetHours, GetProfile, props.location.state.project]);
 
   return (
     <>
@@ -184,8 +271,8 @@ export default function Project(props) {
 
           <Container>
             <div className="container-data">
-              <h3>{project.name}</h3>
-              <div >
+              <h3>{project?.name}</h3>
+              <div>
                 <h4>Pesquisar por data</h4>
                 <InputSmall
                   placeholder="Data"
@@ -227,7 +314,15 @@ export default function Project(props) {
             </Container>
 
             <Container>
-              <h3>{project?.name + " - Horas por Meses"}</h3>
+              <h3>Gráfico Mensal</h3>
+              <div className="bar">
+                <h4>Média de horas por mês - {(totalHours/arrayHours.length).toFixed(2)}h</h4>
+                <Bar
+                  data={dataHoursPerMonth}
+                  options={{
+                    responsive: true,
+                  }} />
+              </div>
             </Container>
           </div>
 
