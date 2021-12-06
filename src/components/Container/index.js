@@ -1,19 +1,18 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 32px;
+  margin-bottom: 32px;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 20px;
   width: 100%;
-  margin-bottom: 32px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     .container-inputs{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 32px;
+      margin: 32px 0;
     }
 
     .container-cards{
@@ -24,6 +23,7 @@ export const Container = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 32px;
     }
 
     .charts{
@@ -41,6 +41,16 @@ export const Container = styled.div`
       height: 30%;
     }
 
+    .bar{
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 50%;
+    }
+
     h3{
       margin: 32px 0;
       color: ${({ theme }) => theme.colors.primary[200]};
@@ -53,7 +63,7 @@ export const Container = styled.div`
 `
 
 export const ContainerSecondary = styled.div`
-  margin-top: 32px;
+  margin: 32px 0;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 20px;

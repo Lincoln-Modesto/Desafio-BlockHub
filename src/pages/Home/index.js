@@ -78,7 +78,7 @@ export default function Home() {
   useEffect(() => {
     GetProject();
     GetProfile();
-  }, [])
+  }, [GetProject, GetProfile])
 
   return (
     <>
