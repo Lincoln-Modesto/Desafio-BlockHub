@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import home from '../../assets/home.svg';
 import work from '../../assets/work.svg';
-import document from '../../assets/document.svg';
 import logout from '../../assets/logout.svg';
 import logo from '../../assets/logo2x.svg';
 
@@ -27,10 +26,6 @@ export function Header(){
       <Item>
         <img src={work} alt="projetos" />
         <span>&nbsp; Horas/Projeto</span>
-      </Item>
-      <Item>
-        <img src={document} alt="relatorios" />
-        <span>&nbsp; Relatórios</span>
       </Item>
       <Item onClick={handleLogout}>
         <img src={logout} alt="sair" />

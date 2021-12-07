@@ -4,7 +4,7 @@ export const Container = styled.div`
   margin-bottom: 32px;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
-  border-radius: 20px;
+  border-radius: 10px;
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -24,6 +24,16 @@ export const Container = styled.div`
       justify-content: space-between;
       align-items: center;
       margin-bottom: 32px;
+    }
+
+    .content-data{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      > button{
+        margin: 0 10px;
+      }
     }
 
     .charts{
@@ -66,7 +76,7 @@ export const ContainerSecondary = styled.div`
   margin: 32px 0;
   padding: 32px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
-  border-radius: 20px;
+  border-radius: 10px;
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   

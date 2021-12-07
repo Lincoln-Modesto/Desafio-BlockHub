@@ -1,8 +1,9 @@
-import { 
-  useEffect, 
-  useContext, 
-  useState, 
-  useMemo } from 'react';
+import {
+  useEffect,
+  useContext,
+  useState,
+  useMemo
+} from 'react';
 import Swal from "sweetalert2";
 import { Context } from '../../context/ProjectContext';
 import api from "../../services/api";
@@ -20,7 +21,7 @@ import { Header } from '../../components/Header';
 
 export default function Home() {
 
-  const {loading, GetProfile, GetProject, projects } = useContext(Context);
+  const { loading, GetProfile, GetProject, projects } = useContext(Context);
 
   const [project, setProject] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -29,14 +30,14 @@ export default function Home() {
     setProject(event.target.value);
   }
 
-  function handleSearch(event){
+  function handleSearch(event) {
     setSearchTerm(event.target.value);
   }
 
-  function handleRequestProject(item){
+  function handleRequestProject(item) {
     history.push({
       pathname: `/project/${item?._id}`,
-      state: {project: item}
+      state: { project: item }
     })
   }
 
@@ -49,28 +50,28 @@ export default function Home() {
   async function PostProject(project) {
     try {
       const token = localStorage.getItem('token');
-  
+
       await api.post('/project', { name: project }, {
         headers: {
           'Authorization': `Bearer ${JSON.parse(token)}`
         }
       })
-      
+
       setProject('');
 
-      Swal.fire({ 
+      Swal.fire({
         title: 'Projeto incluído!',
         confirmButtonText: 'ok',
-        icon: 'success', 
+        icon: 'success',
       })
 
       GetProject();
     } catch (err) {
       console.log(err)
-      Swal.fire({ 
+      Swal.fire({
         title: 'Ops, não foi possível cadastrar o projeto',
         confirmButtonText: 'ok',
-        icon: 'error', 
+        icon: 'error',
       })
     }
   }
@@ -80,11 +81,13 @@ export default function Home() {
     GetProfile();
   }, [GetProject, GetProfile]);
 
+  console.log(filteredProjects)
+
   return (
     <>
       <Loader isLoading={loading} />
-      
-      <Header/>
+
+      <Header />
 
       <ContainerMain>
         <section className="container-project">
@@ -96,12 +99,12 @@ export default function Home() {
                 type="text"
                 noMargin
                 onChange={handleProject}
-                value={project}/>
+                value={project} />
               <Button
                 type="button"
-                onClick={ () => PostProject(project)}
+                onClick={() => PostProject(project)}
                 small>
-                <img src={plus} alt={"cadastro"}/>&nbsp; Cadastrar
+                <img src={plus} alt={"cadastro"} />&nbsp; Cadastrar
               </Button>
             </div>
           </ContainerSecondary>
@@ -109,21 +112,21 @@ export default function Home() {
             <h3>Projetos</h3>
 
             <div className="container-inputs">
-              <Input 
-                placeholder="Pesquisar por Projeto" 
+              <Input
+                placeholder="Pesquisar por Projeto"
                 type="text"
                 fullWidth
                 onChange={handleSearch}
-                value={searchTerm}/>
+                value={searchTerm} />
             </div>
 
             <div className="container-cards">
-              {filteredProjects?.map( (item) => 
+              {filteredProjects?.map((item) =>
                 <Card onClick={() => handleRequestProject(item)} key={item._id}>
-                <strong>{item?.name}</strong>
-              </Card>
+                  <strong>{item?.name}</strong>
+                </Card>
               )}
-              
+
             </div>
           </Container>
         </section>
