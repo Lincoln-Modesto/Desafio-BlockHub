@@ -40,10 +40,10 @@ export default function Register() {
 
      Swal.fire({ 
         title: 'Cadastro realizado com sucesso!',
-        confirmButtonText: 'Save',
+        confirmButtonText: 'Ok',
         icon: 'success', 
       }).then(() => {
-        history.push('/login')
+        history.push('/login');
       })
     }catch(err){}
   }

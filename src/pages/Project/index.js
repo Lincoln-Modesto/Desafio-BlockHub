@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import { Context } from '../../context/ProjectContext';
 import Swal from "sweetalert2";
 import api from "../../services/api";
@@ -45,6 +45,7 @@ export default function Project(props) {
   const [project, setProject] = useState({});
   const [hoursWorked, setHoursWorked] = useState('');
   const [day, setDay] = useState('');
+  const [searchDate, setSearchDate] = useState('');
 
   function handleHours(event) {
     setHoursWorked(event.target.value);
@@ -52,6 +53,10 @@ export default function Project(props) {
 
   function handleDay(event) {
     setDay(event.target.value);
+  }
+
+  function handleFilterDate(event){
+    setSearchDate(event.target.value)
   }
 
   function formatStringData(data) {
@@ -127,7 +132,6 @@ export default function Project(props) {
   const totalHours = [total]
 
   /*definindo horas para o gráfico de barras*/
-  
   const arrayHours = [];
   const arrayMonths = [];
   const months = [];
@@ -226,6 +230,12 @@ export default function Project(props) {
     ],
   };
 
+  const filteredSearchDate = useMemo(() => (
+    filteredHours.filter((projects) => (
+      projects.day?.includes(searchDate) 
+    ))
+  ), [filteredHours, searchDate]);
+
   useEffect(() => {
     GetProfile();
     GetHours();
@@ -277,11 +287,13 @@ export default function Project(props) {
                 <InputSmall
                   placeholder="Data"
                   type="date"
+                  onChange={handleFilterDate}
+                  value={searchDate}
                 />
               </div>
             </div>
             <div className="container-cards">
-              {filteredHours?.map((item) =>
+              {filteredSearchDate?.map((item) =>
                 <CardHour key={item?._id}>
                   <strong>{formatStringData(item?.day)}{" - "}&nbsp;</strong>
                   <span>{item?.hours + " Horas"}</span>
