@@ -15,6 +15,7 @@ import { Pie } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 
 import plus from '../../assets/plusWhite.svg';
+import document from '../../assets/document.svg';
 
 import Loader from "../../components/Loader";
 import { Container, ContainerMain, ContainerSecondary } from "../../components/Container";
@@ -22,6 +23,8 @@ import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
 import { InputSmall } from "../../components/Input";
 import { CardHour } from "../../components/Card";
+import PDFCreator from "../../reports/PDFCreator";
+
 
 ChartJS.register(
   ArcElement,
@@ -55,7 +58,7 @@ export default function Project(props) {
     setDay(event.target.value);
   }
 
-  function handleFilterDate(event){
+  function handleFilterDate(event) {
     setSearchDate(event.target.value)
   }
 
@@ -145,46 +148,46 @@ export default function Project(props) {
   });
 
   arrayMonths.forEach((mes) => {
-    switch(mes){
+    switch (mes) {
       case 0:
         months.push("Janeiro")
-      break;
+        break;
       case 1:
         months.push("Fevereiro")
-      break;
+        break;
       case 2:
         months.push("Março")
-      break;
+        break;
       case 3:
         months.push("Abril")
-      break;
+        break;
       case 4:
         months.push("Maio")
-      break;
+        break;
       case 5:
         months.push("Junho")
-      break;
+        break;
       case 6:
         months.push("Julho")
-      break;
+        break;
       case 7:
         months.push("Agosto")
-      break;
+        break;
       case 8:
         months.push("Setembro")
-      break;
+        break;
       case 9:
         months.push("Outubro")
-      break;
+        break;
       case 10:
         months.push("Novembro")
-      break;
+        break;
       case 11:
         months.push("Dezembro")
-      break;
+        break;
       default:
         console.log('Não foi possível iterar')
-      break
+        break
     }
   })
 
@@ -213,7 +216,7 @@ export default function Project(props) {
         label: 'Horas totais',
         data: totalHours,
         backgroundColor: [
-        'rgba(46, 137, 221, 0.4)'
+          'rgba(46, 137, 221, 0.4)'
         ],
       },
     ],
@@ -232,7 +235,7 @@ export default function Project(props) {
 
   const filteredSearchDate = useMemo(() => (
     filteredHours.filter((projects) => (
-      projects.day?.includes(searchDate) 
+      projects.day?.includes(searchDate)
     ))
   ), [filteredHours, searchDate]);
 
@@ -241,6 +244,8 @@ export default function Project(props) {
     GetHours();
     setProject(props.location.state.project);
   }, [GetHours, GetProfile, props.location.state.project]);
+
+  console.log(filteredHours)
 
   return (
     <>
@@ -281,7 +286,17 @@ export default function Project(props) {
 
           <Container>
             <div className="container-data">
+              <div className="content-data">
               <h3>{project?.name}</h3>
+
+                <Button small onClick={() => PDFCreator(filteredHours, totalHours, project)}> 
+                <img src={document} alt="pdf"/>
+                &nbsp; Gerar PDF</Button>
+
+                <Button small> 
+                <img src={document} alt="xls"/>
+                &nbsp; Gerar XLS</Button>
+              </div>
               <div>
                 <h4>Pesquisar por data</h4>
                 <InputSmall
@@ -295,6 +310,7 @@ export default function Project(props) {
             <div className="container-cards">
               {filteredSearchDate?.map((item) =>
                 <CardHour key={item?._id}>
+                  <strong>{`Usuário: `}{item.user}{" - "}&nbsp;</strong>
                   <strong>{formatStringData(item?.day)}{" - "}&nbsp;</strong>
                   <span>{item?.hours + " Horas"}</span>
                 </CardHour>
@@ -328,7 +344,7 @@ export default function Project(props) {
             <Container>
               <h3>Gráfico Mensal</h3>
               <div className="bar">
-                <h4>Média de horas por mês - {(totalHours/arrayHours.length).toFixed(2)}h</h4>
+                <h4>Horas trabalhadas por mês</h4>
                 <Bar
                   data={dataHoursPerMonth}
                   options={{
