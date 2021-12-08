@@ -23,8 +23,9 @@ import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
 import { InputSmall } from "../../components/Input";
 import { CardHour } from "../../components/Card";
-import PDFCreator from "../../reports/PDFCreator";
 
+import PDFCreator from "../../reports/PDFCreator";
+import ReactExport from "react-export-excel";
 
 ChartJS.register(
   ArcElement,
@@ -36,6 +37,12 @@ ChartJS.register(
 
 export default function Project(props) {
 
+  let arrDates = [];
+
+  const ExcelFile = ReactExport.ExcelFile;
+  const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+  const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
   const {
     user,
     loading,
@@ -44,7 +51,6 @@ export default function Project(props) {
     GetHours,
     hours } = useContext(Context);
 
-  let arrDates = [];
   const [project, setProject] = useState({});
   const [hoursWorked, setHoursWorked] = useState('');
   const [day, setDay] = useState('');
@@ -239,13 +245,29 @@ export default function Project(props) {
     ))
   ), [filteredHours, searchDate]);
 
+  const dataExcel = filteredHours.map((item) => {
+
+    let dia = item?.day.split("-")[2];
+    let mes = item?.day.split("-")[1];
+    let ano = item?.day.split("-")[0];
+
+    const date = dia + '/' + mes + '/' + ano
+
+    return {
+      usuario: item.user,
+      data: date,
+      horas: item.hours
+    }
+
+  })
+
+  console.log(dataExcel)
+
   useEffect(() => {
     GetProfile();
     GetHours();
     setProject(props.location.state.project);
   }, [GetHours, GetProfile, props.location.state.project]);
-
-  console.log(filteredHours)
 
   return (
     <>
@@ -287,15 +309,25 @@ export default function Project(props) {
           <Container>
             <div className="container-data">
               <div className="content-data">
-              <h3>{project?.name}</h3>
+                <h3>{project?.name}</h3>
 
-                <Button small onClick={() => PDFCreator(filteredHours, totalHours, project)}> 
-                <img src={document} alt="pdf"/>
-                &nbsp; Gerar PDF</Button>
+                <Button small onClick={() =>
+                  PDFCreator(filteredHours, totalHours, project)}>
+                  <img src={document} alt="pdf" />
+                  &nbsp; Gerar PDF</Button>
 
-                <Button small> 
-                <img src={document} alt="xls"/>
-                &nbsp; Gerar XLS</Button>
+                <ExcelFile filename="Lançamento de horas" element={
+                  <Button small>
+                    <img src={document} alt="xls" />
+                    &nbsp; Gerar XLS
+                  </Button>}>
+                  <ExcelSheet data={dataExcel} name="Lançamento de Horas" >
+                    <ExcelColumn label="Usuário" value="usuario" />
+                    <ExcelColumn label="Data" value="data" />
+                    <ExcelColumn label="Horas" value="horas" />
+                  </ExcelSheet>
+                </ExcelFile>
+
               </div>
               <div>
                 <h4>Pesquisar por data</h4>

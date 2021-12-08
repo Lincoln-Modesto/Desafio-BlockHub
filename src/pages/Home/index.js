@@ -81,8 +81,6 @@ export default function Home() {
     GetProfile();
   }, [GetProject, GetProfile]);
 
-  console.log(filteredProjects)
-
   return (
     <>
       <Loader isLoading={loading} />
