@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
 height: 100px;
-padding: 16px;
+padding: 16px 32px;
 display: flex;
 justify-content: space-between;
+align-items: center;
 background-color: ${({theme}) => theme.colors.primary.lighter};
 box-shadow: 0px 4px 4px 0px #00000040;
 

@@ -16,11 +16,17 @@ import { Bar } from 'react-chartjs-2';
 
 import plus from '../../assets/plusWhite.svg';
 import document from '../../assets/document.svg';
+import remove from '../../assets/delete.svg';
+import edit from '../../assets/edit.svg';
 
 import Loader from "../../components/Loader";
-import { Container, ContainerMain, ContainerSecondary } from "../../components/Container";
+import {
+  Container,
+  ContainerMain,
+  ContainerSecondary
+} from "../../components/Container";
 import { Header } from "../../components/Header";
-import { Button } from "../../components/Button";
+import { Button, ButtonReports } from "../../components/Button";
 import { InputSmall } from "../../components/Input";
 import { CardHour } from "../../components/Card";
 
@@ -122,7 +128,7 @@ export default function Project(props) {
     }
   }
 
-  /*filtrando horas em comum ao projeto para a listar*/
+  /*filtrando horas em comum ao projeto para listar*/
   const filteredHours = hours.filter((item) => (
     item?.project === project?._id
   ));
@@ -261,8 +267,6 @@ export default function Project(props) {
 
   })
 
-  console.log(dataExcel)
-
   useEffect(() => {
     GetProfile();
     GetHours();
@@ -307,44 +311,65 @@ export default function Project(props) {
           </ContainerSecondary>
 
           <Container>
-            <div className="container-data">
-              <div className="content-data">
-                <h3>{project?.name}</h3>
-
-                <Button small onClick={() =>
-                  PDFCreator(filteredHours, totalHours, project)}>
-                  <img src={document} alt="pdf" />
-                  &nbsp; Gerar PDF</Button>
-
-                <ExcelFile filename="Lançamento de horas" element={
-                  <Button small>
-                    <img src={document} alt="xls" />
-                    &nbsp; Gerar XLS
-                  </Button>}>
-                  <ExcelSheet data={dataExcel} name="Lançamento de Horas" >
-                    <ExcelColumn label="Usuário" value="usuario" />
-                    <ExcelColumn label="Data" value="data" />
-                    <ExcelColumn label="Horas" value="horas" />
-                  </ExcelSheet>
-                </ExcelFile>
-
-              </div>
+            <div className="container-project">
               <div>
-                <h4>Pesquisar por data</h4>
-                <InputSmall
-                  placeholder="Data"
-                  type="date"
-                  onChange={handleFilterDate}
-                  value={searchDate}
-                />
+                <h3>{project?.name}</h3>
+                <img src={edit}
+                  alt="edit"
+                  onClick={() =>
+                    alert('em breve ;)')} />
+                <img src={remove}
+                  className="remove"
+                  alt="remove"
+                  onClick={() => alert('em breve ;)')} />
               </div>
+
+              {filteredHours.length !== 0 &&
+                <div className="content-data">
+                  <div>
+                    <ButtonReports small pdf onClick={() =>
+                      PDFCreator(filteredHours, totalHours, project)}>
+                      <img src={document} alt="pdf" />
+                      &nbsp; Gerar PDF</ButtonReports>
+
+                    <ExcelFile filename="Lançamento de horas" element={
+                      <ButtonReports small>
+                        <img src={document} alt="xls" />
+                        &nbsp; Gerar XLS
+                      </ButtonReports>}>
+                      <ExcelSheet data={dataExcel} name="Lançamento de Horas" >
+                        <ExcelColumn label="Usuário" value="usuario" />
+                        <ExcelColumn label="Data" value="data" />
+                        <ExcelColumn label="Horas" value="horas" />
+                      </ExcelSheet>
+                    </ExcelFile>
+                  </div>
+
+                  <div className="container-filter-data">
+                    <h4>Pesquisar por data</h4>
+                    <InputSmall
+                      placeholder="Data"
+                      type="date"
+                      onChange={handleFilterDate}
+                      value={searchDate}
+                    />
+                  </div>
+                </div>
+              }
+
             </div>
             <div className="container-cards">
               {filteredSearchDate?.map((item) =>
                 <CardHour key={item?._id}>
-                  <strong>{`Usuário: `}{item.user}{" - "}&nbsp;</strong>
-                  <strong>{formatStringData(item?.day)}{" - "}&nbsp;</strong>
-                  <span>{item?.hours + " Horas"}</span>
+                  <div className="container-cardHour">
+                    <strong>{`Usuário: `}{item.user}{" - "}&nbsp;</strong>
+                    <strong>{formatStringData(item?.day)}{" - "}&nbsp;</strong>
+                    <span>{item?.hours + " Horas"}</span>
+                  </div>
+                  <div className="container-cardHour-actions">
+                    <img src={edit} alt="edit" onClick={() => alert('em breve ;)')} />
+                    <img src={remove} className="remove" alt="remove" onClick={() => alert('em breve ;)')} />
+                  </div>
                 </CardHour>
               )}
             </div>

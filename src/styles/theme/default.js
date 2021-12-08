@@ -12,10 +12,10 @@ const theme = {
           200: '#555',
           100: '#B6B6B6'
       },
-      danger:{
-          light: '#F97171',
-          main: '#FC5050',
-          dark: '#F63131',
+      secondary:{
+          backgroundRed: '#FAD1D1',
+          lightRed: '#FC5050',
+          lightGreen: '#099633',
       }
   },
 }
