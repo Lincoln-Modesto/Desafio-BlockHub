@@ -19,21 +19,49 @@ export const Container = styled.div`
       max-height: max-content;
     }
 
-    .container-data{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
+    .container-project{
+      margin: 32px 0;
+
+      > div{
+       display: flex;
+       align-items: center;
+       
+       h3{
+         margin-right: 32px;
+       }
+
+       > img{
+         margin-right: 10px;
+         cursor: pointer;
+         background-color: ${({ theme }) => theme.colors.primary.light};
+         border-radius: 10px;
+         padding: 5px;
+         height: max-content;
+       }
+      }
     }
 
     .content-data{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
 
-      > button{
-        margin: 0 10px;
+      > div{
+        display: flex;
+
+        > button{
+          margin-right: 10px;
+        }
       }
+    }
+
+    .remove{
+        background-color: ${({ theme }) => theme.colors.secondary.backgroundRed} 
+        !important; 
+    }
+
+    .container-filter-data{
+      display: block !important;
     }
 
     .charts{

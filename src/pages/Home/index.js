@@ -18,7 +18,6 @@ import Loader from '../../components/Loader';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 
-
 export default function Home() {
 
   const { loading, GetProfile, GetProject, projects } = useContext(Context);
